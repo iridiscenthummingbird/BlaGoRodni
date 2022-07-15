@@ -1,5 +1,7 @@
+import 'package:blagorodni/localization/localization.dart';
 import 'package:blagorodni/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 part 'routes.dart';
 
@@ -19,6 +21,12 @@ class _AppState extends State<App> {
       onGenerateRoute: _generateRoute,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        AppLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: localizedLabels.keys.toList(),
       home: const MainScreen(),
     );
   }

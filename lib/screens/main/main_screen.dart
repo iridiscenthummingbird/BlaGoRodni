@@ -1,3 +1,4 @@
+import 'package:blagorodni/localization/localization.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -12,10 +13,10 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Text('Main screen'),
+          child: Text(AppLocalizations.of(context).mainScreen.mainScreen),
         ),
       ),
     );
