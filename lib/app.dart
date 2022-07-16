@@ -1,5 +1,8 @@
 import 'package:blagorodni/localization/localization.dart';
+import 'package:blagorodni/screens/login/login_screen.dart';
 import 'package:blagorodni/screens/main/main_screen.dart';
+import 'package:blagorodni/screens/note/note_screen.dart';
+import 'package:blagorodni/screens/registration/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
