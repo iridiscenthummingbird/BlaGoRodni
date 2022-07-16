@@ -1,46 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rx_shared_preferences/rx_shared_preferences.dart';
-
-// - Switch key
-
-const userLang = 'USER_LANG';
+import 'package:flutter/scheduler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class SharedPreferenceManager {
-  void saveUserLanguage(String language);
-
-  Future<String> getUserLanguage();
-
-  Stream<String> watchUserLanguage();
-
-  static SharedPreferenceManager of(BuildContext context) => RepositoryProvider.of(context);
+  void setTheme(ThemeMode themeMode);
+  ThemeMode getTheme();
 }
 
 class SharedPreferenceManagerImpl implements SharedPreferenceManager {
-  late RxSharedPreferences _prefs;
+  final SharedPreferences sharedPreferences;
 
-  static SharedPreferenceManagerImpl? _instance;
+  SharedPreferenceManagerImpl({required this.sharedPreferences});
 
-  factory SharedPreferenceManagerImpl() => _instance ??= SharedPreferenceManagerImpl._();
-
-  SharedPreferenceManagerImpl._();
-
-  Future<void> init(SharedPreferences prefs) async {
-    _prefs = RxSharedPreferences(prefs);
+  @override
+  ThemeMode getTheme() {
+    final theme = sharedPreferences.getString('theme');
+    if (theme == null) {
+      final brightness = SchedulerBinding.instance.window.platformBrightness;
+      final bool isDarkMode = brightness == Brightness.dark;
+      if (isDarkMode) {
+        return ThemeMode.dark;
+      } else {
+        return ThemeMode.light;
+      }
+    } else if (theme == 'dark') {
+      return ThemeMode.dark;
+    } else {
+      return ThemeMode.light;
+    }
   }
 
   @override
-  Future<String> getUserLanguage() async {
-    return (await _prefs.getString(userLang)) ?? '';
-  }
-
-  @override
-  void saveUserLanguage(String language) {
-    _prefs.setString(userLang, language);
-  }
-
-  @override
-  Stream<String> watchUserLanguage() {
-    return _prefs.getStringStream(userLang).map((event) => event ?? '');
+  void setTheme(ThemeMode themeMode) {
+    if (themeMode == ThemeMode.dark) {
+      sharedPreferences.setString('theme', 'dark');
+    } else {
+      sharedPreferences.setString('theme', 'light');
+    }
   }
 }
