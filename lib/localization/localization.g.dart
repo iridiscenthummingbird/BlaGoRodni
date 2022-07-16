@@ -8,6 +8,12 @@ part of 'localization.dart';
 
 final localizedLabels = <Locale, AppLocalizationsData>{
   Locale.fromSubtags(languageCode: 'en'): const AppLocalizationsData(
+    mainScreen: const AppLocalizationsDataMainScreen(
+      myNotes: 'My Notes',
+      logout: 'Logout',
+      text: 'text',
+      mainScreen: 'Main screen',
+    ),
     registrationScreen: const AppLocalizationsDataRegistrationScreen(
       orSignUpWith: 'or sign up with',
       doYouHaveAccount: 'Do you have an account?',
@@ -24,12 +30,14 @@ final localizedLabels = <Locale, AppLocalizationsData>{
       email: 'Email',
       signIn: 'Sign in',
     ),
-    mainScreen: const AppLocalizationsDataMainScreen(
-      text: 'text',
-      mainScreen: 'Main screen',
-    ),
   ),
   Locale.fromSubtags(languageCode: 'uk'): const AppLocalizationsData(
+    mainScreen: const AppLocalizationsDataMainScreen(
+      myNotes: 'Мої Нотатки',
+      logout: 'Вийти',
+      text: 'текст',
+      mainScreen: 'Головний екран',
+    ),
     registrationScreen: const AppLocalizationsDataRegistrationScreen(
       orSignUpWith: 'або зареєструватися з',
       doYouHaveAccount: 'У вас є аккаунт?',
@@ -46,56 +54,102 @@ final localizedLabels = <Locale, AppLocalizationsData>{
       email: 'Електронна пошта',
       signIn: 'Увійти',
     ),
-    mainScreen: const AppLocalizationsDataMainScreen(
-      text: 'текст',
-      mainScreen: 'Головний екран',
-    ),
   ),
 };
 
 class AppLocalizationsData {
   const AppLocalizationsData({
+    required this.mainScreen,
     required this.registrationScreen,
     required this.loginScreen,
-    required this.mainScreen,
   });
 
+  final AppLocalizationsDataMainScreen mainScreen;
   final AppLocalizationsDataRegistrationScreen registrationScreen;
   final AppLocalizationsDataLoginScreen loginScreen;
-  final AppLocalizationsDataMainScreen mainScreen;
   factory AppLocalizationsData.fromJson(Map<String, Object?> map) =>
       AppLocalizationsData(
+        mainScreen: AppLocalizationsDataMainScreen.fromJson(
+            map['mainScreen']! as Map<String, Object?>),
         registrationScreen: AppLocalizationsDataRegistrationScreen.fromJson(
             map['registrationScreen']! as Map<String, Object?>),
         loginScreen: AppLocalizationsDataLoginScreen.fromJson(
             map['loginScreen']! as Map<String, Object?>),
-        mainScreen: AppLocalizationsDataMainScreen.fromJson(
-            map['mainScreen']! as Map<String, Object?>),
       );
 
   AppLocalizationsData copyWith({
+    AppLocalizationsDataMainScreen? mainScreen,
     AppLocalizationsDataRegistrationScreen? registrationScreen,
     AppLocalizationsDataLoginScreen? loginScreen,
-    AppLocalizationsDataMainScreen? mainScreen,
   }) =>
       AppLocalizationsData(
+        mainScreen: mainScreen ?? this.mainScreen,
         registrationScreen: registrationScreen ?? this.registrationScreen,
         loginScreen: loginScreen ?? this.loginScreen,
-        mainScreen: mainScreen ?? this.mainScreen,
       );
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AppLocalizationsData &&
+          mainScreen == other.mainScreen &&
           registrationScreen == other.registrationScreen &&
-          loginScreen == other.loginScreen &&
+          loginScreen == other.loginScreen);
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      mainScreen.hashCode ^
+      registrationScreen.hashCode ^
+      loginScreen.hashCode;
+}
+
+class AppLocalizationsDataMainScreen {
+  const AppLocalizationsDataMainScreen({
+    required this.myNotes,
+    required this.logout,
+    required this.text,
+    required this.mainScreen,
+  });
+
+  final String myNotes;
+  final String logout;
+  final String text;
+  final String mainScreen;
+  factory AppLocalizationsDataMainScreen.fromJson(Map<String, Object?> map) =>
+      AppLocalizationsDataMainScreen(
+        myNotes: map['myNotes']! as String,
+        logout: map['logout']! as String,
+        text: map['text']! as String,
+        mainScreen: map['mainScreen']! as String,
+      );
+
+  AppLocalizationsDataMainScreen copyWith({
+    String? myNotes,
+    String? logout,
+    String? text,
+    String? mainScreen,
+  }) =>
+      AppLocalizationsDataMainScreen(
+        myNotes: myNotes ?? this.myNotes,
+        logout: logout ?? this.logout,
+        text: text ?? this.text,
+        mainScreen: mainScreen ?? this.mainScreen,
+      );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AppLocalizationsDataMainScreen &&
+          myNotes == other.myNotes &&
+          logout == other.logout &&
+          text == other.text &&
           mainScreen == other.mainScreen);
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      registrationScreen.hashCode ^
-      loginScreen.hashCode ^
+      myNotes.hashCode ^
+      logout.hashCode ^
+      text.hashCode ^
       mainScreen.hashCode;
 }
 
@@ -226,38 +280,4 @@ class AppLocalizationsDataLoginScreen {
       validEmailRequired.hashCode ^
       email.hashCode ^
       signIn.hashCode;
-}
-
-class AppLocalizationsDataMainScreen {
-  const AppLocalizationsDataMainScreen({
-    required this.text,
-    required this.mainScreen,
-  });
-
-  final String text;
-  final String mainScreen;
-  factory AppLocalizationsDataMainScreen.fromJson(Map<String, Object?> map) =>
-      AppLocalizationsDataMainScreen(
-        text: map['text']! as String,
-        mainScreen: map['mainScreen']! as String,
-      );
-
-  AppLocalizationsDataMainScreen copyWith({
-    String? text,
-    String? mainScreen,
-  }) =>
-      AppLocalizationsDataMainScreen(
-        text: text ?? this.text,
-        mainScreen: mainScreen ?? this.mainScreen,
-      );
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is AppLocalizationsDataMainScreen &&
-          text == other.text &&
-          mainScreen == other.mainScreen);
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^ text.hashCode ^ mainScreen.hashCode;
 }

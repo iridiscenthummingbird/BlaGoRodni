@@ -10,6 +10,10 @@ abstract class SharedPreferenceManager {
   void setUid(String uid);
 
   String getUid();
+
+  bool isAuthorized();
+
+  void logout();
 }
 
 class SharedPreferenceManagerImpl implements SharedPreferenceManager {
@@ -52,5 +56,16 @@ class SharedPreferenceManagerImpl implements SharedPreferenceManager {
   @override
   void setUid(String uid) {
     sharedPreferences.setString('uid', uid);
+  }
+
+  @override
+  bool isAuthorized() {
+    final String uid = sharedPreferences.getString('uid') ?? '';
+    return uid.isNotEmpty;
+  }
+
+  @override
+  void logout() {
+    sharedPreferences.setString('uid', '');
   }
 }
