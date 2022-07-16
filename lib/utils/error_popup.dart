@@ -10,6 +10,7 @@ void showErrorPopup(String error, {VoidCallback? onPress}) {
       completer.complete(true);
     },
     backgroundColor: Colors.black26,
+    clickClose: true,
     toastBuilder: (cancel) {
       return Builder(
         builder: (context) => MediaQuery.removeViewInsets(
