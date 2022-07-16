@@ -1,5 +1,6 @@
+import 'package:blagorodni/managers/auth_manager.dart';
 import 'package:blagorodni/managers/shared_preference_manager_impl.dart';
-import 'package:blagorodni/repositories/users_repository.dart';
+import 'package:blagorodni/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,8 +26,14 @@ class DI extends StatelessWidget {
                   sharedPreferences: snapshot.data!,
                 ),
               ),
-              RepositoryProvider<UsersRepository>(
-                create: (context) => UsersRepositoryImpl(),
+              RepositoryProvider<AuthManager>(
+                create: (context) => AuthManagerImpl(),
+              ),
+              RepositoryProvider<UserRepository>(
+                create: (context) => UserRepositoryImpl(
+                  authManager: context.read<AuthManager>(),
+                  sharedPreferenceManager: context.read<SharedPreferenceManager>(),
+                ),
               ),
             ],
             child: child,

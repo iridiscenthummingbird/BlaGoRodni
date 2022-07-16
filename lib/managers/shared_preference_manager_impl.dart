@@ -4,7 +4,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class SharedPreferenceManager {
   void setTheme(ThemeMode themeMode);
+
   ThemeMode getTheme();
+
+  void setUid(String uid);
+
+  String getUid();
 }
 
 class SharedPreferenceManagerImpl implements SharedPreferenceManager {
@@ -37,5 +42,15 @@ class SharedPreferenceManagerImpl implements SharedPreferenceManager {
     } else {
       sharedPreferences.setString('theme', 'light');
     }
+  }
+
+  @override
+  String getUid() {
+    return sharedPreferences.getString('uid') ?? '';
+  }
+
+  @override
+  void setUid(String uid) {
+    sharedPreferences.setString('uid', uid);
   }
 }
