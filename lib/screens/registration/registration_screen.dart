@@ -91,10 +91,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             child: Column(
                               children: [
                                 Material(
+                                  color: Colors.white,
                                   child: InkWell(
                                     onTap: () async {
                                       if (_formKey.currentState?.validate() ?? false) {
-                                        _cubit.signUp(_emailController.text, _passwordController.text);
+                                        await _cubit.signUp(_emailController.text, _passwordController.text);
                                       }
                                     },
                                     borderRadius: BorderRadius.circular(20),
