@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "919001509358",
+    "project_id": "blagorodni-8023b",
+    "storage_bucket": "blagorodni-8023b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919001509358:android:56637e69367fdd701c72ff",
+        "android_client_info": {
+          "package_name": "com.example.blagorodni"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "919001509358-1d74sa88q4k164mm90k2d1pnems117fh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm9Dui2JMsf22oifhtI95XAeaomTjHSa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "919001509358-1d74sa88q4k164mm90k2d1pnems117fh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
