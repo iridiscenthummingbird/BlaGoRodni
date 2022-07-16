@@ -8,6 +8,11 @@ part of 'localization.dart';
 
 final localizedLabels = <Locale, AppLocalizationsData>{
   Locale.fromSubtags(languageCode: 'en'): const AppLocalizationsData(
+    registrationScreen: const AppLocalizationsDataRegistrationScreen(
+      orSignUpWith: 'or sign up with',
+      doYouHaveAccount: 'Do you have an account?',
+      signUp: 'Sign up',
+    ),
     loginScreen: const AppLocalizationsDataLoginScreen(
       register: 'Register',
       dontHaveAccount: 'Don\'t have an account?',
@@ -25,6 +30,11 @@ final localizedLabels = <Locale, AppLocalizationsData>{
     ),
   ),
   Locale.fromSubtags(languageCode: 'uk'): const AppLocalizationsData(
+    registrationScreen: const AppLocalizationsDataRegistrationScreen(
+      orSignUpWith: 'або зареєструватися з',
+      doYouHaveAccount: 'У вас є аккаунт?',
+      signUp: 'Зареєструватися',
+    ),
     loginScreen: const AppLocalizationsDataLoginScreen(
       register: 'Реєстрація',
       dontHaveAccount: 'Не маєте облікового запису?',
@@ -45,14 +55,18 @@ final localizedLabels = <Locale, AppLocalizationsData>{
 
 class AppLocalizationsData {
   const AppLocalizationsData({
+    required this.registrationScreen,
     required this.loginScreen,
     required this.mainScreen,
   });
 
+  final AppLocalizationsDataRegistrationScreen registrationScreen;
   final AppLocalizationsDataLoginScreen loginScreen;
   final AppLocalizationsDataMainScreen mainScreen;
   factory AppLocalizationsData.fromJson(Map<String, Object?> map) =>
       AppLocalizationsData(
+        registrationScreen: AppLocalizationsDataRegistrationScreen.fromJson(
+            map['registrationScreen']! as Map<String, Object?>),
         loginScreen: AppLocalizationsDataLoginScreen.fromJson(
             map['loginScreen']! as Map<String, Object?>),
         mainScreen: AppLocalizationsDataMainScreen.fromJson(
@@ -60,10 +74,12 @@ class AppLocalizationsData {
       );
 
   AppLocalizationsData copyWith({
+    AppLocalizationsDataRegistrationScreen? registrationScreen,
     AppLocalizationsDataLoginScreen? loginScreen,
     AppLocalizationsDataMainScreen? mainScreen,
   }) =>
       AppLocalizationsData(
+        registrationScreen: registrationScreen ?? this.registrationScreen,
         loginScreen: loginScreen ?? this.loginScreen,
         mainScreen: mainScreen ?? this.mainScreen,
       );
@@ -72,11 +88,59 @@ class AppLocalizationsData {
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AppLocalizationsData &&
+          registrationScreen == other.registrationScreen &&
           loginScreen == other.loginScreen &&
           mainScreen == other.mainScreen);
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ loginScreen.hashCode ^ mainScreen.hashCode;
+      runtimeType.hashCode ^
+      registrationScreen.hashCode ^
+      loginScreen.hashCode ^
+      mainScreen.hashCode;
+}
+
+class AppLocalizationsDataRegistrationScreen {
+  const AppLocalizationsDataRegistrationScreen({
+    required this.orSignUpWith,
+    required this.doYouHaveAccount,
+    required this.signUp,
+  });
+
+  final String orSignUpWith;
+  final String doYouHaveAccount;
+  final String signUp;
+  factory AppLocalizationsDataRegistrationScreen.fromJson(
+          Map<String, Object?> map) =>
+      AppLocalizationsDataRegistrationScreen(
+        orSignUpWith: map['orSignUpWith']! as String,
+        doYouHaveAccount: map['doYouHaveAccount']! as String,
+        signUp: map['signUp']! as String,
+      );
+
+  AppLocalizationsDataRegistrationScreen copyWith({
+    String? orSignUpWith,
+    String? doYouHaveAccount,
+    String? signUp,
+  }) =>
+      AppLocalizationsDataRegistrationScreen(
+        orSignUpWith: orSignUpWith ?? this.orSignUpWith,
+        doYouHaveAccount: doYouHaveAccount ?? this.doYouHaveAccount,
+        signUp: signUp ?? this.signUp,
+      );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AppLocalizationsDataRegistrationScreen &&
+          orSignUpWith == other.orSignUpWith &&
+          doYouHaveAccount == other.doYouHaveAccount &&
+          signUp == other.signUp);
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      orSignUpWith.hashCode ^
+      doYouHaveAccount.hashCode ^
+      signUp.hashCode;
 }
 
 class AppLocalizationsDataLoginScreen {

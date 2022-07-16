@@ -1,8 +1,10 @@
-import 'package:blagorodni/extentions/email_validation.dart';
 import 'package:blagorodni/localization/localization.dart';
 import 'package:blagorodni/repositories/user_repository.dart';
 import 'package:blagorodni/screens/login/cubit/login_cubit.dart';
 import 'package:blagorodni/screens/main/main_screen.dart';
+import 'package:blagorodni/screens/registration/registration_screen.dart';
+import 'package:blagorodni/widgets/email_field.dart';
+import 'package:blagorodni/widgets/password_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -49,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.white,
         body: Stack(
           children: [
             Image.network(
@@ -79,35 +82,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          TextFormField(
+                          EmailField(
                             controller: _emailController,
-                            decoration: InputDecoration(
-                              labelText: localization.loginScreen.email,
-                            ),
-                            validator: (input) {
-                              if (input != null) {
-                                return input.isValidEmail() ? null : localization.loginScreen.validEmailRequired;
-                              }
-                              return null;
-                            },
                           ),
                           const SizedBox(height: 10),
-                          TextFormField(
+                          PasswordField(
                             controller: _passwordController,
-                            obscuringCharacter: '*',
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              labelText: localization.loginScreen.password,
-                            ),
-                            validator: (input) {
-                              if (input != null && input.isEmpty) {
-                                return localization.loginScreen.passwordRequired;
-                              }
-                              if (input != null && input.length < 6) {
-                                return localization.loginScreen.passwordMustBe;
-                              }
-                              return null;
-                            },
                           ),
                           const SizedBox(height: 30),
                           Center(
@@ -147,12 +127,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   radius: 35,
                                 ),
                                 const SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                Wrap(
+                                  alignment: WrapAlignment.center,
                                   children: [
                                     Text(localization.loginScreen.dontHaveAccount + ' '),
                                     GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.pushReplacementNamed(context, RegistrationScreen.routeName);
+                                      },
                                       child: Text(
                                         localization.loginScreen.register,
                                         style: const TextStyle(
