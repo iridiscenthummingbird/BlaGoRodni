@@ -1,4 +1,5 @@
 import 'package:blagorodni/extentions/email_validation.dart';
+import 'package:blagorodni/localization/localization.dart';
 import 'package:blagorodni/repositories/user_repository.dart';
 import 'package:blagorodni/screens/login/cubit/login_cubit.dart';
 import 'package:blagorodni/screens/main/main_screen.dart';
@@ -22,12 +23,19 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  late final AppLocalizationsData localization;
   @override
   void initState() {
     _cubit = LoginCubit(
       userRepository: context.read<UserRepository>(),
     );
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    localization = AppLocalizations.of(context);
+    super.didChangeDependencies();
   }
 
   @override
@@ -64,21 +72,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 40),
-                          const Text(
-                            'Sign in',
-                            style: TextStyle(
+                          Text(
+                            localization.loginScreen.signIn,
+                            style: const TextStyle(
                               fontSize: 24,
                             ),
                           ),
                           const SizedBox(height: 10),
                           TextFormField(
                             controller: _emailController,
-                            decoration: const InputDecoration(
-                              labelText: 'Email',
+                            decoration: InputDecoration(
+                              labelText: localization.loginScreen.email,
                             ),
                             validator: (input) {
                               if (input != null) {
-                                return input.isValidEmail() ? null : 'A valid email is required';
+                                return input.isValidEmail() ? null : localization.loginScreen.validEmailRequired;
                               }
                               return null;
                             },
@@ -88,15 +96,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: _passwordController,
                             obscuringCharacter: '*',
                             obscureText: true,
-                            decoration: const InputDecoration(
-                              labelText: 'Password',
+                            decoration: InputDecoration(
+                              labelText: localization.loginScreen.password,
                             ),
                             validator: (input) {
                               if (input != null && input.isEmpty) {
-                                return 'A password is required';
+                                return localization.loginScreen.passwordRequired;
                               }
                               if (input != null && input.length < 6) {
-                                return 'Password must be at least 6 characters';
+                                return localization.loginScreen.passwordMustBe;
                               }
                               return null;
                             },
@@ -118,12 +126,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                         border: Border.all(color: Colors.black),
                                         borderRadius: BorderRadius.circular(50),
                                       ),
-                                      child: const Center(
+                                      child: Center(
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(vertical: 10),
+                                          padding: const EdgeInsets.symmetric(vertical: 10),
                                           child: Text(
-                                            'Sign in',
-                                            style: TextStyle(
+                                            localization.loginScreen.signIn,
+                                            style: const TextStyle(
                                               fontSize: 24,
                                             ),
                                           ),
@@ -133,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 const SizedBox(height: 20),
-                                const Text('or sign in with'),
+                                Text(localization.loginScreen.orSignInWith),
                                 const SizedBox(height: 10),
                                 const CircleAvatar(
                                   radius: 35,
@@ -142,12 +150,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Text('Don\'t have an account? '),
+                                    Text(localization.loginScreen.dontHaveAccount + ' '),
                                     GestureDetector(
                                       onTap: () {},
-                                      child: const Text(
-                                        'Register',
-                                        style: TextStyle(
+                                      child: Text(
+                                        localization.loginScreen.register,
+                                        style: const TextStyle(
                                           color: Colors.blue,
                                         ),
                                       ),
