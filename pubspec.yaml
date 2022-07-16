@@ -18,7 +18,6 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_sheet_localization: ^5.1.1
   shared_preferences: ^2.0.15
-  rx_shared_preferences: ^3.0.0
 
 
 dev_dependencies:

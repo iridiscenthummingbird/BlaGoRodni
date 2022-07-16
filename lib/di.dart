@@ -1,8 +1,8 @@
-import 'package:blagorodni/managers/api_manager.dart';
 import 'package:blagorodni/managers/shared_preference_manager_impl.dart';
 import 'package:blagorodni/repositories/users_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DI extends StatelessWidget {
   final Widget child;
@@ -14,21 +14,29 @@ class DI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<ApiManager>(
-          create: (context) => ApiManagerImpl(),
-        ),
-        RepositoryProvider<SharedPreferenceManager>(
-          create: (context) => SharedPreferenceManagerImpl(),
-        ),
-        RepositoryProvider<UsersRepository>(
-          create: (context) => UsersRepositoryImpl(
-            apiManager: context.read(),
-          ),
-        ),
-      ],
-      child: child,
+    return FutureBuilder<SharedPreferences>(
+      future: SharedPreferences.getInstance(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return MultiRepositoryProvider(
+            providers: [
+              RepositoryProvider<SharedPreferenceManager>(
+                create: (context) => SharedPreferenceManagerImpl(
+                  sharedPreferences: snapshot.data!,
+                ),
+              ),
+              RepositoryProvider<UsersRepository>(
+                create: (context) => UsersRepositoryImpl(),
+              ),
+            ],
+            child: child,
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 }
