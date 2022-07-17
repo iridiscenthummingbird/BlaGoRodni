@@ -36,3 +36,16 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  
+  fonts:
+    - family: TTNorms
+      fonts:
+        - asset: assets/fonts/TTNorms-HeavyItalic.otf
+          weight: 500
+        - asset: assets/fonts/TTNorms-Regular.otf
+          weight: 600
+        - asset: assets/fonts/TTNorms-Medium.otf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: 400
