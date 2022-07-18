@@ -1,6 +1,7 @@
 import 'package:blagorodni/di.dart';
 import 'package:blagorodni/localization/localization.dart';
 import 'package:blagorodni/managers/shared_preference_manager_impl.dart';
+import 'package:blagorodni/models/note.dart';
 import 'package:blagorodni/screens/login/login_screen.dart';
 import 'package:blagorodni/screens/main/main_screen.dart';
 import 'package:blagorodni/screens/note/note_screen.dart';

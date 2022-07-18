@@ -34,8 +34,14 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, NoteScreen.routeName);
+        onPressed: () async {
+          final bool? shouldRefresh = await Navigator.pushNamed<bool>(
+            context,
+            NoteScreen.routeName,
+          );
+          if (shouldRefresh == true) {
+            await _cubit.getNotes();
+          }
         },
         backgroundColor: Colors.black,
         child: const Icon(Icons.add),
@@ -65,15 +71,27 @@ class _MainScreenState extends State<MainScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: RefreshIndicator(
                   color: Colors.black,
-                  onRefresh: () async => await _cubit.getNotes(),
+                  onRefresh: () async => await _cubit.getNotes(shouldRefresh: false),
                   child: ListView.builder(
                     itemCount: notes.length,
                     itemBuilder: (context, index) {
-                      return NoteCard(
-                        note: notes[index],
-                        changeFavorite: (isFavorite, id) async {
-                          await _cubit.changeFavorite(isFavorite, id);
+                      return GestureDetector(
+                        onTap: () async {
+                          final bool? shouldRefresh = await Navigator.pushNamed<bool>(
+                            context,
+                            NoteScreen.routeName,
+                            arguments: notes[index],
+                          );
+                          if (shouldRefresh == true) {
+                            await _cubit.getNotes();
+                          }
                         },
+                        child: NoteCard(
+                          note: notes[index],
+                          changeFavorite: (isFavorite, id) async {
+                            await _cubit.changeFavorite(isFavorite, id);
+                          },
+                        ),
                       );
                     },
                   ),

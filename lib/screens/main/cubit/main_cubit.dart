@@ -18,7 +18,10 @@ class MainCubit extends Cubit<MainState> {
     userRepository.logout();
   }
 
-  Future<void> getNotes() async {
+  Future<void> getNotes({bool shouldRefresh = true}) async {
+    if (shouldRefresh) {
+      emit(MainLoadingState());
+    }
     emit(
       MainNotesLoadedState(
         notes: await notesRepository.getNotes(),

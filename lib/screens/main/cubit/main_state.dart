@@ -10,3 +10,5 @@ class MainNotesLoadedState extends MainState {
 
   MainNotesLoadedState({required this.notes});
 }
+
+class MainLoadingState extends MainState {}

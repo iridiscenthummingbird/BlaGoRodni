@@ -11,6 +11,20 @@ class NoteCubit extends Cubit<NoteState> {
 
   Future<void> addNote(String title, String description, bool isFavorite) async {
     await notesRepository.addNote(title, description, isFavorite).withErrorHandler(this);
-    emit(NoteCreatedState());
+    emit(NoteSuccessedState());
+  }
+
+  Future<void> changeFavorite(bool isFavorite, String id) async {
+    await notesRepository.changeFavorite(isFavorite, id);
+  }
+
+  Future<void> editNote(String title, String description, String id) async {
+    await notesRepository.editNote(title, description, id);
+    emit(NoteSuccessedState());
+  }
+
+  Future<void> deleteNote(String id) async {
+    await notesRepository.deleteNote(id);
+    emit(NoteSuccessedState());
   }
 }
