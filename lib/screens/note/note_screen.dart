@@ -41,6 +41,7 @@ class _NoteScreenState extends State<NoteScreen> {
       noteState = NoteState.edit;
       _titleController.text = widget.note!.title;
       _descriptionController.text = widget.note!.description;
+      isFavorite = widget.note!.isFavorite;
     } else {
       noteState = NoteState.create;
     }
@@ -121,6 +122,7 @@ class _NoteScreenState extends State<NoteScreen> {
                   isFavorite = !isFavorite;
                 });
                 if (noteState == NoteState.edit) {
+                  print(isFavorite);
                   await _cubit.changeFavorite(isFavorite, widget.note!.id);
                 }
               },
