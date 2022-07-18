@@ -1,6 +1,8 @@
 import 'package:blagorodni/localization/localization.dart';
+import 'package:blagorodni/models/note.dart';
 import 'package:blagorodni/screens/login/login_screen.dart';
 import 'package:blagorodni/screens/main/cubit/main_cubit.dart';
+import 'package:blagorodni/screens/main/widgets/card.dart';
 import 'package:blagorodni/screens/note/note_screen.dart';
 import 'package:blagorodni/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,11 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
-    _cubit = MainCubit(userRepository: context.read());
+    _cubit = MainCubit(
+      userRepository: context.read(),
+      notesRepository: context.read(),
+    );
+    _cubit.getNotes();
     super.initState();
   }
 
@@ -50,8 +56,37 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       body: SafeArea(
-        child: Center(
-          child: Text(AppLocalizations.of(context).mainScreen.mainScreen),
+        child: BlocBuilder(
+          bloc: _cubit,
+          builder: (context, state) {
+            if (state is MainNotesLoadedState) {
+              final List<Note> notes = state.notes;
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: RefreshIndicator(
+                  color: Colors.black,
+                  onRefresh: () async => await _cubit.getNotes(),
+                  child: ListView.builder(
+                    itemCount: notes.length,
+                    itemBuilder: (context, index) {
+                      return NoteCard(
+                        note: notes[index],
+                        changeFavorite: (isFavorite, id) async {
+                          await _cubit.changeFavorite(isFavorite, id);
+                        },
+                      );
+                    },
+                  ),
+                ),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                ),
+              );
+            }
+          },
         ),
       ),
     );

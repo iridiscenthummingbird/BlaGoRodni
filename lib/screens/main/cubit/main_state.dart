@@ -4,3 +4,9 @@ part of 'main_cubit.dart';
 abstract class MainState {}
 
 class MainInitial extends MainState {}
+
+class MainNotesLoadedState extends MainState {
+  final List<Note> notes;
+
+  MainNotesLoadedState({required this.notes});
+}
