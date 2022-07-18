@@ -14,9 +14,11 @@ Route<dynamic> _generateRoute(RouteSettings settings) {
         builder: (BuildContext context) => const LoginScreen(),
       );
     case NoteScreen.routeName:
-      return MaterialPageRoute<dynamic>(
+      return MaterialPageRoute<bool>(
         settings: settings,
-        builder: (BuildContext context) => const NoteScreen(),
+        builder: (BuildContext context) => NoteScreen(
+          note: settings.arguments as Note?,
+        ),
       );
     case RegistrationScreen.routeName:
       return MaterialPageRoute<dynamic>(

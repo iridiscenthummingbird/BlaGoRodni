@@ -9,6 +9,9 @@ part of 'localization.dart';
 final localizedLabels = <Locale, AppLocalizationsData>{
   Locale.fromSubtags(languageCode: 'en'): const AppLocalizationsData(
     noteScreen: const AppLocalizationsDataNoteScreen(
+      no: 'No',
+      yes: 'Yes',
+      doYouWantSave: 'Do you want to save the note?',
       descriptionRequired: 'Description is required',
       description: 'Description',
       title: 'Title',
@@ -39,6 +42,9 @@ final localizedLabels = <Locale, AppLocalizationsData>{
   ),
   Locale.fromSubtags(languageCode: 'uk'): const AppLocalizationsData(
     noteScreen: const AppLocalizationsDataNoteScreen(
+      no: 'Ні',
+      yes: 'Так',
+      doYouWantSave: 'Ви хочете зберегти запис?',
       descriptionRequired: 'Потрібен опис',
       description: 'Опис',
       title: 'Титул',
@@ -125,18 +131,27 @@ class AppLocalizationsData {
 
 class AppLocalizationsDataNoteScreen {
   const AppLocalizationsDataNoteScreen({
+    required this.no,
+    required this.yes,
+    required this.doYouWantSave,
     required this.descriptionRequired,
     required this.description,
     required this.title,
     required this.titleRequired,
   });
 
+  final String no;
+  final String yes;
+  final String doYouWantSave;
   final String descriptionRequired;
   final String description;
   final String title;
   final String titleRequired;
   factory AppLocalizationsDataNoteScreen.fromJson(Map<String, Object?> map) =>
       AppLocalizationsDataNoteScreen(
+        no: map['no']! as String,
+        yes: map['yes']! as String,
+        doYouWantSave: map['doYouWantSave']! as String,
         descriptionRequired: map['descriptionRequired']! as String,
         description: map['description']! as String,
         title: map['title']! as String,
@@ -144,12 +159,18 @@ class AppLocalizationsDataNoteScreen {
       );
 
   AppLocalizationsDataNoteScreen copyWith({
+    String? no,
+    String? yes,
+    String? doYouWantSave,
     String? descriptionRequired,
     String? description,
     String? title,
     String? titleRequired,
   }) =>
       AppLocalizationsDataNoteScreen(
+        no: no ?? this.no,
+        yes: yes ?? this.yes,
+        doYouWantSave: doYouWantSave ?? this.doYouWantSave,
         descriptionRequired: descriptionRequired ?? this.descriptionRequired,
         description: description ?? this.description,
         title: title ?? this.title,
@@ -160,6 +181,9 @@ class AppLocalizationsDataNoteScreen {
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AppLocalizationsDataNoteScreen &&
+          no == other.no &&
+          yes == other.yes &&
+          doYouWantSave == other.doYouWantSave &&
           descriptionRequired == other.descriptionRequired &&
           description == other.description &&
           title == other.title &&
@@ -167,6 +191,9 @@ class AppLocalizationsDataNoteScreen {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      no.hashCode ^
+      yes.hashCode ^
+      doYouWantSave.hashCode ^
       descriptionRequired.hashCode ^
       description.hashCode ^
       title.hashCode ^

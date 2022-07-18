@@ -7,6 +7,10 @@ abstract class FireStoreManager {
   Future<List<Note>> getNotes(String userId);
 
   Future<void> changeFavorite(bool isFavorite, String id);
+
+  Future<void> editNote(String title, String description, String id);
+
+  Future<void> deleteNote(String id);
 }
 
 class FireStoreManagerImpl implements FireStoreManager {
@@ -48,5 +52,20 @@ class FireStoreManagerImpl implements FireStoreManager {
   @override
   Future<void> changeFavorite(bool isFavorite, String id) async {
     await notesCollection.doc(id).update({'isFavorite': isFavorite});
+  }
+
+  @override
+  Future<void> deleteNote(String id) async {
+    await notesCollection.doc(id).delete();
+  }
+
+  @override
+  Future<void> editNote(String title, String description, String id) async {
+    await notesCollection.doc(id).update(
+      {
+        'title': title,
+        'description': description,
+      },
+    );
   }
 }
