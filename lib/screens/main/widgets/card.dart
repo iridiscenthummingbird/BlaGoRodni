@@ -40,11 +40,16 @@ class _NoteCardState extends State<NoteCard> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Text(
-                    widget.note.title,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                  child: SizedBox(
+                    width: 270,
+                    child: Text(
+                      widget.note.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -72,6 +77,8 @@ class _NoteCardState extends State<NoteCard> {
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Text(
                 widget.note.description,
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   fontSize: 15,
                 ),

@@ -50,9 +50,7 @@ class DI extends StatelessWidget {
             child: child,
           );
         } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const SizedBox();
         }
       },
     );
