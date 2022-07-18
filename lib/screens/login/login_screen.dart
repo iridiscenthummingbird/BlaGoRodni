@@ -7,6 +7,7 @@ import 'package:blagorodni/widgets/email_field.dart';
 import 'package:blagorodni/widgets/password_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -58,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
               'https://i.pinimg.com/736x/32/7c/74/327c74a2b9b1463771e8406d3835f31f.jpg',
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 260),
+              padding: const EdgeInsets.only(top: 240),
               child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -124,8 +125,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const SizedBox(height: 20),
                                 Text(localization.loginScreen.orSignInWith),
                                 const SizedBox(height: 10),
-                                const CircleAvatar(
-                                  radius: 35,
+                                GestureDetector(
+                                  onTap: () async {
+                                    await _cubit.googleSignIn();
+                                  },
+                                  child: SizedBox(
+                                    height: 50,
+                                    width: double.infinity,
+                                    child: SvgPicture.asset(
+                                      'assets/google_logo.svg',
+                                      fit: BoxFit.fitHeight,
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(height: 20),
                                 Wrap(
@@ -145,6 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ],
                                 ),
+                                const SizedBox(height: 10),
                               ],
                             ),
                           ),

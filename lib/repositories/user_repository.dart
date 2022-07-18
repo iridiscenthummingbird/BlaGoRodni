@@ -1,12 +1,15 @@
 import 'package:blagorodni/managers/auth_manager.dart';
 import 'package:blagorodni/managers/shared_preference_manager_impl.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class UserRepository {
   Future<void> signIn(String email, String password);
 
   Future<void> signUp(String email, String password);
 
-  void logout();
+  Future<void> googleSignIn();
+
+  Future<void> logout();
 }
 
 class UserRepositoryImpl extends UserRepository {
@@ -31,7 +34,15 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   @override
-  void logout() {
+  Future<void> logout() async {
+    await GoogleSignIn().signOut();
     sharedPreferenceManager.logout();
+  }
+
+  @override
+  Future<void> googleSignIn() async {
+    final GoogleSignInAccount? result = await GoogleSignIn().signIn();
+    final String uid = result?.id ?? '';
+    sharedPreferenceManager.setUid(uid);
   }
 }

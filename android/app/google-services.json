@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "919001509358-q0nun6esj64p35kak0dq7pt1t5uoir47.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.blagorodni",
+            "certificate_hash": "2323c4afe8d4cd0d5cf83ef1f32ead48e90e24e2"
+          }
+        },
+        {
           "client_id": "919001509358-1d74sa88q4k164mm90k2d1pnems117fh.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "919001509358-1d74sa88q4k164mm90k2d1pnems117fh.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "919001509358-u9mm727kn8gkgiqmh1pc2nnldodlgmpe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.blagorodni"
+              }
             }
           ]
         }
