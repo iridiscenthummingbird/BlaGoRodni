@@ -8,6 +8,12 @@ part of 'localization.dart';
 
 final localizedLabels = <Locale, AppLocalizationsData>{
   Locale.fromSubtags(languageCode: 'en'): const AppLocalizationsData(
+    noteScreen: const AppLocalizationsDataNoteScreen(
+      descriptionRequired: 'Description is required',
+      description: 'Description',
+      title: 'Title',
+      titleRequired: 'Title is required',
+    ),
     mainScreen: const AppLocalizationsDataMainScreen(
       myNotes: 'My Notes',
       logout: 'Logout',
@@ -32,6 +38,12 @@ final localizedLabels = <Locale, AppLocalizationsData>{
     ),
   ),
   Locale.fromSubtags(languageCode: 'uk'): const AppLocalizationsData(
+    noteScreen: const AppLocalizationsDataNoteScreen(
+      descriptionRequired: 'Потрібен опис',
+      description: 'Опис',
+      title: 'Титул',
+      titleRequired: 'Назва потрібна',
+    ),
     mainScreen: const AppLocalizationsDataMainScreen(
       myNotes: 'Мої Нотатки',
       logout: 'Вийти',
@@ -59,16 +71,20 @@ final localizedLabels = <Locale, AppLocalizationsData>{
 
 class AppLocalizationsData {
   const AppLocalizationsData({
+    required this.noteScreen,
     required this.mainScreen,
     required this.registrationScreen,
     required this.loginScreen,
   });
 
+  final AppLocalizationsDataNoteScreen noteScreen;
   final AppLocalizationsDataMainScreen mainScreen;
   final AppLocalizationsDataRegistrationScreen registrationScreen;
   final AppLocalizationsDataLoginScreen loginScreen;
   factory AppLocalizationsData.fromJson(Map<String, Object?> map) =>
       AppLocalizationsData(
+        noteScreen: AppLocalizationsDataNoteScreen.fromJson(
+            map['noteScreen']! as Map<String, Object?>),
         mainScreen: AppLocalizationsDataMainScreen.fromJson(
             map['mainScreen']! as Map<String, Object?>),
         registrationScreen: AppLocalizationsDataRegistrationScreen.fromJson(
@@ -78,11 +94,13 @@ class AppLocalizationsData {
       );
 
   AppLocalizationsData copyWith({
+    AppLocalizationsDataNoteScreen? noteScreen,
     AppLocalizationsDataMainScreen? mainScreen,
     AppLocalizationsDataRegistrationScreen? registrationScreen,
     AppLocalizationsDataLoginScreen? loginScreen,
   }) =>
       AppLocalizationsData(
+        noteScreen: noteScreen ?? this.noteScreen,
         mainScreen: mainScreen ?? this.mainScreen,
         registrationScreen: registrationScreen ?? this.registrationScreen,
         loginScreen: loginScreen ?? this.loginScreen,
@@ -92,15 +110,67 @@ class AppLocalizationsData {
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AppLocalizationsData &&
+          noteScreen == other.noteScreen &&
           mainScreen == other.mainScreen &&
           registrationScreen == other.registrationScreen &&
           loginScreen == other.loginScreen);
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      noteScreen.hashCode ^
       mainScreen.hashCode ^
       registrationScreen.hashCode ^
       loginScreen.hashCode;
+}
+
+class AppLocalizationsDataNoteScreen {
+  const AppLocalizationsDataNoteScreen({
+    required this.descriptionRequired,
+    required this.description,
+    required this.title,
+    required this.titleRequired,
+  });
+
+  final String descriptionRequired;
+  final String description;
+  final String title;
+  final String titleRequired;
+  factory AppLocalizationsDataNoteScreen.fromJson(Map<String, Object?> map) =>
+      AppLocalizationsDataNoteScreen(
+        descriptionRequired: map['descriptionRequired']! as String,
+        description: map['description']! as String,
+        title: map['title']! as String,
+        titleRequired: map['titleRequired']! as String,
+      );
+
+  AppLocalizationsDataNoteScreen copyWith({
+    String? descriptionRequired,
+    String? description,
+    String? title,
+    String? titleRequired,
+  }) =>
+      AppLocalizationsDataNoteScreen(
+        descriptionRequired: descriptionRequired ?? this.descriptionRequired,
+        description: description ?? this.description,
+        title: title ?? this.title,
+        titleRequired: titleRequired ?? this.titleRequired,
+      );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AppLocalizationsDataNoteScreen &&
+          descriptionRequired == other.descriptionRequired &&
+          description == other.description &&
+          title == other.title &&
+          titleRequired == other.titleRequired);
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      descriptionRequired.hashCode ^
+      description.hashCode ^
+      title.hashCode ^
+      titleRequired.hashCode;
 }
 
 class AppLocalizationsDataMainScreen {

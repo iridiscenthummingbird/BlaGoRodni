@@ -1,6 +1,7 @@
 import 'package:blagorodni/localization/localization.dart';
 import 'package:blagorodni/screens/login/login_screen.dart';
 import 'package:blagorodni/screens/main/cubit/main_cubit.dart';
+import 'package:blagorodni/screens/note/note_screen.dart';
 import 'package:blagorodni/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,13 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, NoteScreen.routeName);
+        },
+        backgroundColor: Colors.black,
+        child: const Icon(Icons.add),
+      ),
       drawer: CustomDrawer(
         logout: () {
           _cubit.logout();
