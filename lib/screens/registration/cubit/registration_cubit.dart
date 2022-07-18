@@ -13,4 +13,9 @@ class RegistrationCubit extends Cubit<RegistrationState> {
     await userRepository.signUp(email, password).withErrorHandler(this);
     emit(RegistrationSuccessState());
   }
+
+  Future<void> googleSignIn() async {
+    await userRepository.googleSignIn().withErrorHandler(this);
+    emit(RegistrationSuccessState());
+  }
 }

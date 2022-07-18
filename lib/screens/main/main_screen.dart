@@ -47,8 +47,8 @@ class _MainScreenState extends State<MainScreen> {
         child: const Icon(Icons.add),
       ),
       drawer: CustomDrawer(
-        logout: () {
-          _cubit.logout();
+        logout: () async {
+          await _cubit.logout();
           Navigator.pushReplacementNamed(context, LoginScreen.routeName);
         },
       ),

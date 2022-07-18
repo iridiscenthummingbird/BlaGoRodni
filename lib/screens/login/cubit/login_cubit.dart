@@ -14,4 +14,9 @@ class LoginCubit extends Cubit<LoginState> {
     await userRepository.signIn(email, password).withErrorHandler(this);
     emit(LoginSuccessState());
   }
+
+  Future<void> googleSignIn() async {
+    await userRepository.googleSignIn().withErrorHandler(this);
+    emit(LoginSuccessState());
+  }
 }
