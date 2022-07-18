@@ -1,8 +1,13 @@
 import 'package:blagorodni/managers/firestore_manager.dart';
 import 'package:blagorodni/managers/shared_preference_manager_impl.dart';
+import 'package:blagorodni/models/note.dart';
 
 abstract class NotesRepository {
   Future<void> addNote(String title, String description, bool isFavorite);
+
+  Future<List<Note>> getNotes();
+
+  Future<void> changeFavorite(bool isFavorite, String id);
 }
 
 class NotesRepositoryImpl extends NotesRepository {
@@ -19,5 +24,15 @@ class NotesRepositoryImpl extends NotesRepository {
       isFavorite,
       sharedPreferenceManager.getUid(),
     );
+  }
+
+  @override
+  Future<List<Note>> getNotes() async {
+    return await fireStoreManager.getNotes(sharedPreferenceManager.getUid());
+  }
+
+  @override
+  Future<void> changeFavorite(bool isFavorite, String id) async {
+    await fireStoreManager.changeFavorite(isFavorite, id);
   }
 }
