@@ -8,6 +8,13 @@ part of 'localization.dart';
 
 final localizedLabels = <Locale, AppLocalizationsData>{
   Locale.fromSubtags(languageCode: 'en'): const AppLocalizationsData(
+    mainScreen: const AppLocalizationsDataMainScreen(
+      darkTheme: 'Dark theme',
+      myNotes: 'My Notes',
+      logout: 'Logout',
+      text: 'text',
+      mainScreen: 'Main screen',
+    ),
     noteScreen: const AppLocalizationsDataNoteScreen(
       no: 'No',
       yes: 'Yes',
@@ -16,12 +23,6 @@ final localizedLabels = <Locale, AppLocalizationsData>{
       description: 'Description',
       title: 'Title',
       titleRequired: 'Title is required',
-    ),
-    mainScreen: const AppLocalizationsDataMainScreen(
-      myNotes: 'My Notes',
-      logout: 'Logout',
-      text: 'text',
-      mainScreen: 'Main screen',
     ),
     registrationScreen: const AppLocalizationsDataRegistrationScreen(
       orSignUpWith: 'or sign up with',
@@ -41,6 +42,13 @@ final localizedLabels = <Locale, AppLocalizationsData>{
     ),
   ),
   Locale.fromSubtags(languageCode: 'uk'): const AppLocalizationsData(
+    mainScreen: const AppLocalizationsDataMainScreen(
+      darkTheme: 'Темна тема',
+      myNotes: 'Мої Нотатки',
+      logout: 'Вийти',
+      text: 'текст',
+      mainScreen: 'Головний екран',
+    ),
     noteScreen: const AppLocalizationsDataNoteScreen(
       no: 'Ні',
       yes: 'Так',
@@ -49,12 +57,6 @@ final localizedLabels = <Locale, AppLocalizationsData>{
       description: 'Опис',
       title: 'Титул',
       titleRequired: 'Назва потрібна',
-    ),
-    mainScreen: const AppLocalizationsDataMainScreen(
-      myNotes: 'Мої Нотатки',
-      logout: 'Вийти',
-      text: 'текст',
-      mainScreen: 'Головний екран',
     ),
     registrationScreen: const AppLocalizationsDataRegistrationScreen(
       orSignUpWith: 'або зареєструватися з',
@@ -77,22 +79,22 @@ final localizedLabels = <Locale, AppLocalizationsData>{
 
 class AppLocalizationsData {
   const AppLocalizationsData({
-    required this.noteScreen,
     required this.mainScreen,
+    required this.noteScreen,
     required this.registrationScreen,
     required this.loginScreen,
   });
 
-  final AppLocalizationsDataNoteScreen noteScreen;
   final AppLocalizationsDataMainScreen mainScreen;
+  final AppLocalizationsDataNoteScreen noteScreen;
   final AppLocalizationsDataRegistrationScreen registrationScreen;
   final AppLocalizationsDataLoginScreen loginScreen;
   factory AppLocalizationsData.fromJson(Map<String, Object?> map) =>
       AppLocalizationsData(
-        noteScreen: AppLocalizationsDataNoteScreen.fromJson(
-            map['noteScreen']! as Map<String, Object?>),
         mainScreen: AppLocalizationsDataMainScreen.fromJson(
             map['mainScreen']! as Map<String, Object?>),
+        noteScreen: AppLocalizationsDataNoteScreen.fromJson(
+            map['noteScreen']! as Map<String, Object?>),
         registrationScreen: AppLocalizationsDataRegistrationScreen.fromJson(
             map['registrationScreen']! as Map<String, Object?>),
         loginScreen: AppLocalizationsDataLoginScreen.fromJson(
@@ -100,14 +102,14 @@ class AppLocalizationsData {
       );
 
   AppLocalizationsData copyWith({
-    AppLocalizationsDataNoteScreen? noteScreen,
     AppLocalizationsDataMainScreen? mainScreen,
+    AppLocalizationsDataNoteScreen? noteScreen,
     AppLocalizationsDataRegistrationScreen? registrationScreen,
     AppLocalizationsDataLoginScreen? loginScreen,
   }) =>
       AppLocalizationsData(
-        noteScreen: noteScreen ?? this.noteScreen,
         mainScreen: mainScreen ?? this.mainScreen,
+        noteScreen: noteScreen ?? this.noteScreen,
         registrationScreen: registrationScreen ?? this.registrationScreen,
         loginScreen: loginScreen ?? this.loginScreen,
       );
@@ -116,17 +118,74 @@ class AppLocalizationsData {
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AppLocalizationsData &&
-          noteScreen == other.noteScreen &&
           mainScreen == other.mainScreen &&
+          noteScreen == other.noteScreen &&
           registrationScreen == other.registrationScreen &&
           loginScreen == other.loginScreen);
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      noteScreen.hashCode ^
       mainScreen.hashCode ^
+      noteScreen.hashCode ^
       registrationScreen.hashCode ^
       loginScreen.hashCode;
+}
+
+class AppLocalizationsDataMainScreen {
+  const AppLocalizationsDataMainScreen({
+    required this.darkTheme,
+    required this.myNotes,
+    required this.logout,
+    required this.text,
+    required this.mainScreen,
+  });
+
+  final String darkTheme;
+  final String myNotes;
+  final String logout;
+  final String text;
+  final String mainScreen;
+  factory AppLocalizationsDataMainScreen.fromJson(Map<String, Object?> map) =>
+      AppLocalizationsDataMainScreen(
+        darkTheme: map['darkTheme']! as String,
+        myNotes: map['myNotes']! as String,
+        logout: map['logout']! as String,
+        text: map['text']! as String,
+        mainScreen: map['mainScreen']! as String,
+      );
+
+  AppLocalizationsDataMainScreen copyWith({
+    String? darkTheme,
+    String? myNotes,
+    String? logout,
+    String? text,
+    String? mainScreen,
+  }) =>
+      AppLocalizationsDataMainScreen(
+        darkTheme: darkTheme ?? this.darkTheme,
+        myNotes: myNotes ?? this.myNotes,
+        logout: logout ?? this.logout,
+        text: text ?? this.text,
+        mainScreen: mainScreen ?? this.mainScreen,
+      );
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AppLocalizationsDataMainScreen &&
+          darkTheme == other.darkTheme &&
+          myNotes == other.myNotes &&
+          logout == other.logout &&
+          text == other.text &&
+          mainScreen == other.mainScreen);
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      darkTheme.hashCode ^
+      myNotes.hashCode ^
+      logout.hashCode ^
+      text.hashCode ^
+      mainScreen.hashCode;
 }
 
 class AppLocalizationsDataNoteScreen {
@@ -198,56 +257,6 @@ class AppLocalizationsDataNoteScreen {
       description.hashCode ^
       title.hashCode ^
       titleRequired.hashCode;
-}
-
-class AppLocalizationsDataMainScreen {
-  const AppLocalizationsDataMainScreen({
-    required this.myNotes,
-    required this.logout,
-    required this.text,
-    required this.mainScreen,
-  });
-
-  final String myNotes;
-  final String logout;
-  final String text;
-  final String mainScreen;
-  factory AppLocalizationsDataMainScreen.fromJson(Map<String, Object?> map) =>
-      AppLocalizationsDataMainScreen(
-        myNotes: map['myNotes']! as String,
-        logout: map['logout']! as String,
-        text: map['text']! as String,
-        mainScreen: map['mainScreen']! as String,
-      );
-
-  AppLocalizationsDataMainScreen copyWith({
-    String? myNotes,
-    String? logout,
-    String? text,
-    String? mainScreen,
-  }) =>
-      AppLocalizationsDataMainScreen(
-        myNotes: myNotes ?? this.myNotes,
-        logout: logout ?? this.logout,
-        text: text ?? this.text,
-        mainScreen: mainScreen ?? this.mainScreen,
-      );
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is AppLocalizationsDataMainScreen &&
-          myNotes == other.myNotes &&
-          logout == other.logout &&
-          text == other.text &&
-          mainScreen == other.mainScreen);
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      myNotes.hashCode ^
-      logout.hashCode ^
-      text.hashCode ^
-      mainScreen.hashCode;
 }
 
 class AppLocalizationsDataRegistrationScreen {

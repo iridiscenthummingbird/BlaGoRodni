@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class SharedPreferenceManager {
@@ -14,12 +15,22 @@ abstract class SharedPreferenceManager {
   bool isAuthorized();
 
   void logout();
+
+  static SharedPreferenceManager of(BuildContext context) => RepositoryProvider.of(context);
 }
 
 class SharedPreferenceManagerImpl implements SharedPreferenceManager {
-  final SharedPreferences sharedPreferences;
+  late final SharedPreferences sharedPreferences;
 
-  SharedPreferenceManagerImpl({required this.sharedPreferences});
+  static SharedPreferenceManagerImpl? _instance;
+
+  factory SharedPreferenceManagerImpl() => _instance ??= SharedPreferenceManagerImpl._();
+
+  SharedPreferenceManagerImpl._();
+
+  Future<void> init(SharedPreferences prefs) async {
+    sharedPreferences = prefs;
+  }
 
   @override
   ThemeMode getTheme() {

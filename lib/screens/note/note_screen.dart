@@ -65,8 +65,8 @@ class _NoteScreenState extends State<NoteScreen> {
                     },
                     child: Text(
                       AppLocalizations.of(context).noteScreen.yes,
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: Theme.of(context).iconTheme.color,
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
@@ -78,8 +78,8 @@ class _NoteScreenState extends State<NoteScreen> {
                     },
                     child: Text(
                       AppLocalizations.of(context).noteScreen.no,
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: Theme.of(context).iconTheme.color,
                         fontWeight: FontWeight.normal,
                         fontSize: 18,
                       ),
@@ -113,7 +113,7 @@ class _NoteScreenState extends State<NoteScreen> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          foregroundColor: Colors.black,
+          foregroundColor: Theme.of(context).iconTheme.color,
           actions: [
             FavoriteButton(
               isFavorite: isFavorite,

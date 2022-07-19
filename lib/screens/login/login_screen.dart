@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).primaryColor,
         body: Stack(
           children: [
             Image.network(
@@ -61,9 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 240),
               child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(50),
                   ),
                 ),
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Column(
                               children: [
                                 Material(
-                                  color: Colors.white,
+                                  color: Theme.of(context).primaryColor,
                                   child: InkWell(
                                     onTap: () async {
                                       if (_formKey.currentState?.validate() ?? false) {
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(20),
                                     child: Ink(
                                       decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.black),
+                                        border: Border.all(color: Theme.of(context).iconTheme.color!),
                                         borderRadius: BorderRadius.circular(50),
                                       ),
                                       child: Center(

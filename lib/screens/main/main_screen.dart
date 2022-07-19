@@ -43,7 +43,8 @@ class _MainScreenState extends State<MainScreen> {
             await _cubit.getNotes();
           }
         },
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).iconTheme.color,
+        foregroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add),
       ),
       drawer: CustomDrawer(
@@ -52,9 +53,9 @@ class _MainScreenState extends State<MainScreen> {
           Navigator.pushReplacementNamed(context, LoginScreen.routeName);
         },
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
-        foregroundColor: Colors.black,
+        foregroundColor: Theme.of(context).iconTheme.color,
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(

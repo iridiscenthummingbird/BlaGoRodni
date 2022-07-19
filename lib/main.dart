@@ -1,11 +1,13 @@
 import 'package:blagorodni/app.dart';
 import 'package:blagorodni/firebase_options.dart';
+import 'package:blagorodni/managers/shared_preference_manager_impl.dart';
 import 'package:blagorodni/utils/error_popup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyBlocObserver extends BlocObserver {
   @override
@@ -42,6 +44,8 @@ Future<void> main() async {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
+      final sharedPrefs = await SharedPreferences.getInstance();
+      SharedPreferenceManagerImpl().init(sharedPrefs);
       runApp(const App());
     },
     blocObserver: MyBlocObserver(),

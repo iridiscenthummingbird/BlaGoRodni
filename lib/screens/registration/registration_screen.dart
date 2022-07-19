@@ -48,7 +48,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).primaryColor,
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
@@ -58,9 +58,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 240),
               child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(50),
                   ),
                 ),
@@ -92,7 +92,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             child: Column(
                               children: [
                                 Material(
-                                  color: Colors.white,
+                                  color: Theme.of(context).primaryColor,
                                   child: InkWell(
                                     onTap: () async {
                                       if (_formKey.currentState?.validate() ?? false) {
@@ -102,7 +102,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     borderRadius: BorderRadius.circular(20),
                                     child: Ink(
                                       decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.black),
+                                        border: Border.all(color: Theme.of(context).iconTheme.color!),
                                         borderRadius: BorderRadius.circular(50),
                                       ),
                                       child: Center(

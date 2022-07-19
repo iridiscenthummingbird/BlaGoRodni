@@ -62,13 +62,13 @@ class _NoteCardState extends State<NoteCard> {
                     await widget.changeFavorite(isFavorite, widget.note.id);
                   },
                   icon: isFavorite
-                      ? const Icon(
+                      ? Icon(
                           Icons.star,
-                          color: Colors.black,
+                          color: Theme.of(context).iconTheme.color,
                         )
-                      : const Icon(
+                      : Icon(
                           Icons.star_outline,
-                          color: Colors.black,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                 ),
               ],

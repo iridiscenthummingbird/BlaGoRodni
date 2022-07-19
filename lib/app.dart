@@ -6,10 +6,12 @@ import 'package:blagorodni/screens/login/login_screen.dart';
 import 'package:blagorodni/screens/main/main_screen.dart';
 import 'package:blagorodni/screens/note/note_screen.dart';
 import 'package:blagorodni/screens/registration/registration_screen.dart';
+import 'package:blagorodni/utils/my_themes.dart';
+import 'package:blagorodni/utils/theme_provider.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 part 'routes.dart';
 
@@ -26,23 +28,31 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return DI(
-      child: Builder(
-        builder: (context) {
-          return MaterialApp(
-            builder: BotToastInit(),
-            onGenerateRoute: _generateRoute,
-            navigatorKey: navigatorKey,
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: const [
-              AppLocalizationsDelegate(),
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            supportedLocales: localizedLabels.keys.toList(),
-            home: context.read<SharedPreferenceManager>().isAuthorized() ? const MainScreen() : const LoginScreen(),
-          );
-        },
+      child: ChangeNotifierProvider(
+        create: (context) => ThemeProvider(
+          sharedPreferenceManager: context.read(),
+        ),
+        child: Builder(
+          builder: (context) {
+            return MaterialApp(
+              themeMode: context.watch<ThemeProvider>().themeMode,
+              theme: MyThemes.lightTheme,
+              darkTheme: MyThemes.darkTheme,
+              builder: BotToastInit(),
+              onGenerateRoute: _generateRoute,
+              navigatorKey: navigatorKey,
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: const [
+                AppLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              supportedLocales: localizedLabels.keys.toList(),
+              home: context.read<SharedPreferenceManager>().isAuthorized() ? const MainScreen() : const LoginScreen(),
+            );
+          },
+        ),
       ),
     );
   }
